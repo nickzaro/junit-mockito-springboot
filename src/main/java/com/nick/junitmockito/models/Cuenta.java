@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Cuenta {
     private String persona;
     private BigDecimal saldo;
+    private Banco banco;
 
     public Cuenta(String persona, BigDecimal saldo) {
         this.persona = persona;
@@ -20,6 +21,14 @@ public class Cuenta {
 
     public void setPersona(String persona) {
         this.persona = persona;
+    }
+
+    public Banco getBanco() {
+        return banco;
+    }
+
+    public void setBanco(Banco banco) {
+        this.banco = banco;
     }
 
     public BigDecimal getSaldo() {
