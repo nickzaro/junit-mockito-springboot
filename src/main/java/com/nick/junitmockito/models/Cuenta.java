@@ -1,5 +1,7 @@
 package com.nick.junitmockito.models;
 
+import com.nick.junitmockito.models.exceptions.DineroInsuficienteException;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -26,6 +28,18 @@ public class Cuenta {
 
     public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
+    }
+
+    public void debito(BigDecimal monto) throws DineroInsuficienteException {
+        BigDecimal saldo = this.saldo.subtract(monto);
+        if (saldo.compareTo(BigDecimal.ZERO)< 0)
+            throw new DineroInsuficienteException("El dinero en la cuenta es insuficiente!");
+        this.saldo = saldo;
+    }
+
+    public  void credito(BigDecimal monto){
+        this.saldo = this.saldo.add(monto);
+
     }
 
     @Override
