@@ -1,4 +1,4 @@
-package com.nick.junitmockitospringboot;
+package com.nick.junitmockito;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
