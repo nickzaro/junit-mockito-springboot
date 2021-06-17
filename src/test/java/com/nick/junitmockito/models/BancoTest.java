@@ -1,6 +1,8 @@
 package com.nick.junitmockito.models;
 
 import com.nick.junitmockito.models.exceptions.DineroInsuficienteException;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -9,17 +11,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BancoTest {
 
+    Banco banco;
+    Cuenta cuentaOrigen;
+    Cuenta cuentaDestino;
+
+    @BeforeEach
+    void beforeEach() {
+        this.banco = new Banco("ICBC Bank");
+        this.cuentaOrigen = new Cuenta("Juan",new BigDecimal("1000.100"));
+        this.cuentaDestino = new Cuenta("Pedro",new BigDecimal("2000.200"));
+    }
+
     @Test
     void testBanco(){
-        Banco banco = new Banco("ICBC Bank");
         assertEquals("ICBC Bank",banco.getNombre());
     }
 
     @Test
     void testCuentaTransferir() throws DineroInsuficienteException {
-        Banco banco = new Banco("ICBC Bank");
-        Cuenta cuentaOrigen = new Cuenta("Juan",new BigDecimal("1000.100"));
-        Cuenta cuentaDestino = new Cuenta("Pedro",new BigDecimal("2000.200"));
         banco.addCuenta(cuentaOrigen);
         banco.addCuenta(cuentaDestino);
         banco.transferir(cuentaOrigen,cuentaDestino,new BigDecimal("100.100"));
@@ -38,9 +47,6 @@ class BancoTest {
 
     @Test
     void testCuentaTransferirDineroInsuficienteException() {
-        Banco banco = new Banco("ICBC Bank");
-        Cuenta cuentaOrigen = new Cuenta("Juan",new BigDecimal("1000.100"));
-        Cuenta cuentaDestino = new Cuenta("Pedro",new BigDecimal("2000.200"));
         banco.addCuenta(cuentaOrigen);
         banco.addCuenta(cuentaDestino);
         assertThrows(DineroInsuficienteException.class, ()-> banco.transferir(cuentaOrigen,cuentaDestino,new BigDecimal("1000.200")));
